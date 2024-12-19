@@ -5,6 +5,7 @@ import RegistrationPage from "../pages/RegistrationPage";
 import TaskPage from "../pages/TaskPage";
 import { createBrowserRouter } from "react-router";
 import AuthLayout from "../layouts/AuthLayout";
+import UserPage from "../pages/UserPage";
 
 const routes = createBrowserRouter([
   {
@@ -24,11 +25,18 @@ const routes = createBrowserRouter([
   }, 
   {
     element : <AuthLayout/>,
-    children: [{
-      index: true,
-      path: "/task",
-      element: <TaskPage/>,
-    }]
+    children: [
+      {
+        index: true,
+        path: "/task",
+        element: <TaskPage/>,
+      },
+      {
+        index: true,
+        path: "/user",
+        element: <UserPage/>,
+      },
+    ]
   },
   {
     path: '/*',

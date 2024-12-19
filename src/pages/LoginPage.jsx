@@ -1,12 +1,24 @@
-import { useEffect } from "react";
-import { Link } from "react-router";
-import { setLocalToken } from "../utils/token";
+import { Link, useNavigate } from "react-router";
+import { useForm } from "react-hook-form";
+import { authLogin } from "../services/authService";
+import { useAuth } from "../context/AuthProvider";
 
 const LoginPage = () => {
 
-  useEffect(()=> {
-    setLocalToken('some');
-  },[]);
+  const {register, handleSubmit, reset, formState: {errors}} = useForm();
+  const {login} = useAuth();
+  const navigage = useNavigate();
+
+  const loginForm = async (data) => {
+    const response = await authLogin(data);
+    if(response.status == 200) {
+      const token = response.data?.data.token ?? null;
+      login(token);
+      reset();
+      navigage('/task');
+    }
+  }
+
   return (
     <>
       <div className="flex h-screen flex-1 flex-col justify-center px-6 lg:px-8">
@@ -22,7 +34,7 @@ const LoginPage = () => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" className="space-y-6">
+          <form onSubmit={handleSubmit(loginForm)} method="POST" className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
                 Email address
@@ -30,12 +42,15 @@ const LoginPage = () => {
               <div className="mt-2">
                 <input
                   id="email"
-                  name="email"
                   type="email"
                   required
+                  {...register('email', {
+                    required: true,
+                  })}
                   autoComplete="email"
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 />
+                {errors.email && <><p className="text-red-600">{errors.email.message}</p></>}
               </div>
             </div>
 
@@ -49,13 +64,16 @@ const LoginPage = () => {
               <div className="mt-2">
                 <input
                   id="password"
-                  name="password"
+                  {...register('password', {
+                    required:true,
+                  })}
                   type="password"
                   required
                   autoComplete="current-password"
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 />
               </div>
+              {errors.password && <><p className="text-red-600">{errors.password.message}</p></>}
             </div>
 
             <div>
