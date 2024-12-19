@@ -34,7 +34,7 @@ apiClient.interceptors.response.use(
           case 401:
             console.error('Unauthorized! Please login again.');
             localStorage.removeItem('token');
-            window.location.href = '/login';
+            window.location.href = '/';
             break;
           case 500:
             console.error('Internal Server Error. Please try again later.');
