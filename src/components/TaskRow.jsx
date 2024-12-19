@@ -4,9 +4,9 @@ import { createPortal } from 'react-dom';
 import Modal from './Modal';
 
 const plans = [
-  { id: 1, name: 'Startup', ram: '12GB', cpus: '6 CPUs', disk: '256GB SSD disk' },
-  { id: 2, name: 'Business', ram: '16GB', cpus: '8 CPUs', disk: '512GB SSD disk' },
-  { id: 3, name: 'Enterprise', ram: '32GB', cpus: '12 CPUs', disk: '1TB SSD disk' },
+  { id: 1, name: 'Startup'},
+  { id: 2, name: 'Business'},
+  { id: 3, name: 'Enterprise'},
 ]
 
 export default function TaskRow() {
@@ -48,15 +48,7 @@ export default function TaskRow() {
                 <div className="flex w-full items-center justify-between">
                     <div className="text-sm/6">
                     <p className="font-semibold text-white">{plan.name}</p>
-                    {/* <div className="flex gap-2 text-white/70">
-                        <div>{plan.ram}</div>
-                        <div aria-hidden="true">&middot;</div>
-                        <div>{plan.cpus}</div>
-                        <div aria-hidden="true">&middot;</div>
-                        <div>{plan.disk}</div>
-                    </div> */}
                     </div>
-                    {/* <CheckCircle2 className="size-6 fill-white opacity-0 transition group-data-[checked]:opacity-100" /> */}
                 </div>
                 </Radio>
             ))}
@@ -65,12 +57,24 @@ export default function TaskRow() {
       </div>
     </div>
     {
-              createPortal(<>
-              <Modal isOpen={open} setIsOpen={toggleModal}>
-              <p>This is within modal</p>
-            </Modal>
-            </>, document.getElementById('overlay'))
-            }
+      createPortal(
+      <>
+        <Modal isOpen={open} setIsOpen={toggleModal}>
+          <form className='flex flex-col gap-2' onSubmit={(e) => {
+            e.preventDefault();
+            const form = e.target;
+            console.log("Form submitted", form);
+            return;
+          }}>
+            <label htmlFor="">Name</label>
+            <input type="text" className='w-full py-2 border-2 rounded-md border-indigo-600 outline-none px-5' name='name' placeholder='Add Title' />
+            <button className='w-full text-white py-2 px-4 bg-indigo-500'>
+              Submit
+            </button>
+          </form>
+        </Modal>
+      </>, document.getElementById('overlay'))
+    }
     </>
   )
 }

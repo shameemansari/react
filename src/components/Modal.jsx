@@ -2,9 +2,8 @@ import { Dialog, DialogBackdrop, DialogPanel, DialogTitle, TransitionChild } fro
 import { X } from 'lucide-react'
 
 export default function Modal({children, isOpen, setIsOpen}) {
-
   return (
-    <Dialog open={isOpen} onClose={setIsOpen} className="relative z-[9999]">
+    <Dialog open={isOpen} onClose={() => true} className="relative z-[9999]">
       <DialogBackdrop
         transition
         className="fixed inset-0 bg-gray-500/75 transition-opacity duration-500 ease-in-out data-[closed]:opacity-0"
@@ -32,7 +31,7 @@ export default function Modal({children, isOpen, setIsOpen}) {
               </TransitionChild>
               <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
                 <div className="px-4 sm:px-6">
-                  <DialogTitle className="text-base font-semibold text-gray-900">Panel title</DialogTitle>
+                  <DialogTitle className="text-base font-semibold text-gray-900">Task Create Form</DialogTitle>
                 </div>
                 <div className="relative mt-6 flex-1 px-4 sm:px-6">
                   {children}
