@@ -1,16 +1,13 @@
 import { useAuth } from '../context/AuthProvider';
 import Header from '../components/Header'
-import { Outlet, useNavigate } from 'react-router'
-import { useEffect } from 'react';
+import { Navigate, Outlet } from 'react-router'
 
 const AuthLayout = () => {
   const {token} = useAuth();
-  const navigate = useNavigate();
-    useEffect(() => {
-      if(token) {
-        navigate('/task');
-      }
-    },[]);
+  if(token == null || !token) {
+    return <Navigate to="/" replace />
+  }
+    
   return (
     <>
       <Header/>

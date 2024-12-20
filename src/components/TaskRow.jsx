@@ -10,7 +10,7 @@ const plans = [
 ]
 
 export default function TaskRow() {
-  const [selected, setSelected] = useState(plans[0])
+  const [selected, setSelected] = useState(null)
   const [open, setOpen] = useState(false);
 
   const toggleModal = () => {
@@ -18,21 +18,23 @@ export default function TaskRow() {
   }
 
   useEffect(() => {
-    console.log(selected);
+    if(selected) {
+      alert(selected.name);
+    }
   }, [selected]);
 
   return (
     <>
     
-    <div className="w-[400px] card bg-slate-500/10 rounded-2xl border">
-      <div className="w-full p-8">
+    <div className="w-[380px] card bg-slate-500/10 rounded-2xl border">
+      <div className="w-full p-4 md:p-8">
         <div className="w-full flex justify-end">
             <button type='button' onClick={toggleModal} className='w-24 mb-2 rounded-md bg-black px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-slate-800'>
                 Add Task
             </button>
         </div>
         <Field>
-            <Label className="text-2xl tracking-wide font-medium text-black">SEARCH TODO </Label>
+            <Label className="text-2xl tracking-wide font-medium text-black">TODO </Label>
             <Input placeholder='Enter Task'
             className={'my-3 block w-full rounded-lg p-3.5 text-sm/6 focus:outline-none'}/>
         </Field>
