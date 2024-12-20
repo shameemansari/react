@@ -1,6 +1,7 @@
 import { useAuth } from '../context/AuthProvider';
 import Header from '../components/Header'
 import { Navigate, Outlet } from 'react-router'
+import { Toaster } from 'react-hot-toast';
 
 const AuthLayout = () => {
   const {token} = useAuth();
@@ -10,6 +11,7 @@ const AuthLayout = () => {
     
   return (
     <>
+      <Toaster />
       <Header/>
       <Outlet/>
     </>

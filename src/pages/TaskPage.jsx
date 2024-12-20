@@ -1,5 +1,6 @@
-import { Edit3, Trash2, X } from "lucide-react";
+import { Edit3, Trash2 } from "lucide-react";
 import TaskRow from "../components/TaskRow";
+import SubTaskList from "../components/SubTaskList";
 
 const TaskPage = () => {
   
@@ -44,37 +45,7 @@ const TaskPage = () => {
                 Add Sub-Task
               </button>
             </div>
-            <div className="group relative flex cursor-pointer rounded-md bg-slate-900 py-3 px-5 mt-5 shadow-md transition focus:outline-none data-[focus]:outline-1 data-[focus]:outline-black data-[checked]:bg-indigo-500">
-              <div className="flex w-full items-center justify-between">
-                <div className="text-sm flex gap-4">
-                  <input
-                    id="some"
-                    type="checkbox"
-                    name="subtask"
-                    className="inline"
-                    onChange={(e) =>
-                      alert(e.target.checked ? "Checked" : "Unchecked")
-                    }
-                  />
-                  <label
-                    htmlFor="some"
-                    className="font-semibold text-white line-through p-2"
-                  >
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi aperiam dolores odio quibusdam sed corporis fugit natus fugiat quidem similique!
-                  </label>
-                </div>
-                <div className="flex gap-5 items-center">
-                  <Edit3
-                    className="size-4 text-white"
-                    onClick={() => alert("Edit Option")}
-                  />
-                  <X
-                    className="size-5 text-white"
-                    onClick={() => alert("Delete Option")}
-                  />
-                </div>
-              </div>
-            </div>
+            <SubTaskList/>
           </div>
         </div>
       </div>

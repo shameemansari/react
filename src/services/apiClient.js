@@ -1,10 +1,11 @@
 import axios from 'axios';
 import URLS from '../constants/urls';
+import { notifyCustomError, notifyError } from '../utils/toasts';
 
 const apiClient = axios.create({
     baseURL: URLS.BASE_URL,
     withCredentials: true,
-    // withXSRFToken: true,
+    withXSRFToken: true,
     headers: {
         "Content-Type": "application/json",
         "Accept": "application/json",
@@ -15,7 +16,6 @@ const apiClient = axios.create({
 apiClient.interceptors.request.use(
     async (config) => {
         const token = localStorage.getItem('token');
-        // const XSRFToken = localStorage.getItem('XSRFToken');
         if(token) {
           config.headers.Authorization = `Bearer ${token}`;
         }
@@ -32,21 +32,21 @@ apiClient.interceptors.response.use(
       if (error.response) {
         switch (error.response.status) {
           case 401:
-            console.error('Unauthorized! Please login again.');
+            notifyCustomError("Unauthorized! Please login again.")
             localStorage.removeItem('token');
             window.location.href = '/';
             break;
           case 500:
-            console.error('Internal Server Error. Please try again later.');
+            notifyCustomError("Internal Server Error. Please try again later.")
             break;
           default:
-            console.error(`Error: ${error.response.status} - ${error.response.data.message || 'Something went wrong'}`);
+            notifyCustomError(`Error: ${error.response.status} - ${error.response.data.message || 'Something went wrong'}`)
             break;
         }
       } else if (error.request) {
-        console.error('Network error. Please check your connection.');
+        notifyCustomError("Network error. Please check your connection.")
       } else {
-        console.error('Request setup failed.');
+        notifyCustomError("Request setup failed.")
       }
   
       return Promise.reject(error);

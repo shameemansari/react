@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { authLogin } from "../services/authService";
 import { useAuth } from "../context/AuthProvider";
-
+ 
 const LoginPage = () => {
 
   const {register, handleSubmit, reset, formState: {errors}} = useForm();
